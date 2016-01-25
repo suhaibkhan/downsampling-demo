@@ -3,7 +3,9 @@ var data = require('./utils/data');
 
 var app = express();
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3002));
+app.set('ip', (process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'));
+
 app.use(express.static(__dirname + '/public'));
 
 app.use('/data', function(req, res, next){
@@ -29,6 +31,6 @@ app.get('/data', function(req, res){
   res.json({data: resultData, time: new Date().getTime() - requestTime});
 });
 
-app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'));
+app.listen(app.get('port'), app.get('ip'), function() {
+  console.log('Node app is running at ' + app.get('ip') + ':' + app.get('port'));
 });
