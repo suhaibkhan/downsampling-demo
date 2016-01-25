@@ -13,7 +13,7 @@ body {
 }
 
 h1, h2{
-  font-family: serif 'Georgia';
+  font-family: serif, Georgia;
 }
 
 h1{
@@ -24,7 +24,7 @@ h1{
 
 h2{
   padding: 0;
-  margin: 5px;
+  margin: 5px 25px;
 }
 
 canvas {
@@ -70,26 +70,6 @@ svg {
   position: relative;
 }
 
-.chartcontainer{
-}
-
-.selectContainer {
-  text-align: center;
-  margin-bottom: 10px;
-  font-size: 12px;
-}
-
-.collapseBtn {
-  background-color: gray;
-  color: white;
-  margin: 1px 1px 1px 10px;
-  padding: 1px 2px;
-  display: inline-block;
-  height: 12px;
-  width: 12px;
-  vertical-align: middle;
-}
-
     </style>
     <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="timeseries-chart.js"></script>
@@ -98,7 +78,7 @@ svg {
   <body>
     <div id="container">
 
-      <h1>Downsampling Algorithms Demo</h1>
+      <h1>Downsampling Algorithms Comparison</h1>
 
       <div class="chartcontainer" data-sampling-method="raw">
         <h2>Raw Data</h2>
@@ -106,25 +86,6 @@ svg {
         <div class="chart main"></div>
         <br style="clear: both"/>
       </div>
-
-      <!--
-      <div class="chartcontainer" data-sampling-method="random">
-        <h2>Sampled Data</h2>
-        <div class="selectContainer">
-          Algorithm :
-          <select id="samplingAlgoSelect" data-chart-index="1">
-            <option value="raw">Raw Data</option>
-            <option value="random" selected>Random Downsampling</option>
-            <option value="average">Average Downsampling</option>
-            <option value="minmax">Min-Max Downsampling</option>
-            <option value="lttb">Largest Triangle Three Buckets Downsampling</option>
-          </select>
-        </div>
-        <div class="chart left"></div>
-        <div class="chart right"></div>
-        <br style="clear: both"/>
-      </div>
-    -->
 
       <div class="chartcontainer" data-sampling-method="random">
         <h2>Random Downsampling</h2>
@@ -140,8 +101,15 @@ svg {
         <br style="clear: both"/>
       </div>
 
+      <div class="chartcontainer" data-sampling-method="sum">
+        <h2>Sum Downsampling</h2>
+        <div class="chart link"></div>
+        <div class="chart main"></div>
+        <br style="clear: both"/>
+      </div>
+
       <div class="chartcontainer" data-sampling-method="minmax">
-        <h2>Min-Max Downsampling</h2>
+        <h2>Combined Minimum Maximum Downsampling</h2>
         <div class="chart link"></div>
         <div class="chart main"></div>
         <br style="clear: both"/>

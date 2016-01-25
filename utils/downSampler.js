@@ -20,14 +20,16 @@ exports.downSample = function(method, data, threshold){
     return randomSampling(data, threshold);
   }else if(method == 'average'){
     return averageSampling(data, threshold);
+	}else if(method == 'sum'){
+    return sumSampling(data, threshold);
   }else if(method == 'minmax'){
-    return minMaxSampling(data, threshold);
+    return combinedMinMaxSampling(data, threshold);
   }
   return data;
 };
 
 
-function minMaxSampling(data, threshold){
+function combinedMinMaxSampling(data, threshold){
 
   var data_length = data.length, i = 0;
   if (threshold >= data_length || threshold === 0) {
@@ -71,6 +73,34 @@ function minMaxSampling(data, threshold){
 
   return sampled;
 
+}
+
+function sumSampling(data, threshold){
+
+  var data_length = data.length, i = 0;
+  if (threshold >= data_length || threshold === 0) {
+		return data; // Nothing to do
+	}
+
+  var sampled = [];
+
+  while (i < data_length) {
+    var size = ceil((data_length - i) / threshold--);
+    var first = i;
+    var last = (i + size - 1);
+
+    var sum = 0;
+    for (var j = first; j <= last; j++){
+      sum += data[j][1]; // sum of values in bucket
+    }
+
+    var timeIndex = first + floor((last - first)/2); // center of bucket
+
+    sampled.push([data[timeIndex][0], sum]);
+
+    i += size;
+  }
+  return sampled;
 }
 
 function averageSampling(data, threshold){
