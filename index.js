@@ -10,7 +10,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use('/data', function(req, res, next){
   // log req query
-  // console.log(req.query);
+  console.log(req.query);
   next();
 });
 
