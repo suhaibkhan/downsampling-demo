@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Down Sampling Demo</title>
+
+    <style>
+
+body {
+  font: 10px sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2{
+  font-family: serif 'Georgia';
+}
+
+h1{
+  padding: 0;
+  margin: 10px;
+  text-align: center;
+}
+
+h2{
+  padding: 0;
+  margin: 5px;
+}
+
+canvas {
+  position: absolute;
+  z-index: 1;
+}
+
+svg {
+  position: absolute;
+  z-index: 2;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.brush .extent {
+  fill: lightgreen;
+  fill-opacity: .35;
+  shape-rendering: crispEdges;
+}
+
+.info text{
+  text-anchor: end;
+  alignment-baseline: baseline;
+}
+
+.chart {
+  float: left;
+  position: relative;
+}
+
+.chartcontainer{
+}
+
+.selectContainer {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.collapseBtn {
+  background-color: gray;
+  color: white;
+  margin: 1px 1px 1px 10px;
+  padding: 1px 2px;
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  vertical-align: middle;
+}
+
+    </style>
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="timeseries-chart.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <div id="container">
+
+      <h1>Downsampling Algorithms Demo</h1>
+
+      <div class="chartcontainer" data-sampling-method="raw">
+        <h2>Raw Data</h2>
+        <div class="chart link"></div>
+        <div class="chart main"></div>
+        <br style="clear: both"/>
+      </div>
+
+      <!--
+      <div class="chartcontainer" data-sampling-method="random">
+        <h2>Sampled Data</h2>
+        <div class="selectContainer">
+          Algorithm :
+          <select id="samplingAlgoSelect" data-chart-index="1">
+            <option value="raw">Raw Data</option>
+            <option value="random" selected>Random Downsampling</option>
+            <option value="average">Average Downsampling</option>
+            <option value="minmax">Min-Max Downsampling</option>
+            <option value="lttb">Largest Triangle Three Buckets Downsampling</option>
+          </select>
+        </div>
+        <div class="chart left"></div>
+        <div class="chart right"></div>
+        <br style="clear: both"/>
+      </div>
+    -->
+
+      <div class="chartcontainer" data-sampling-method="random">
+        <h2>Random Downsampling</h2>
+        <div class="chart link"></div>
+        <div class="chart main"></div>
+        <br style="clear: both"/>
+      </div>
+
+      <div class="chartcontainer" data-sampling-method="average">
+        <h2>Average Downsampling</h2>
+        <div class="chart link"></div>
+        <div class="chart main"></div>
+        <br style="clear: both"/>
+      </div>
+
+      <div class="chartcontainer" data-sampling-method="minmax">
+        <h2>Min-Max Downsampling</h2>
+        <div class="chart link"></div>
+        <div class="chart main"></div>
+        <br style="clear: both"/>
+      </div>
+
+      <div class="chartcontainer" data-sampling-method="lttb">
+        <h2>Largest Triangle Three Buckets Downsampling</h2>
+        <div class="chart link"></div>
+        <div class="chart main"></div>
+        <br style="clear: both"/>
+      </div>
+
+    </div>
+  </body>
+</html>
