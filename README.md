@@ -11,7 +11,6 @@ Live demo of this comparison can be viewed at http://downsampling-suhaibkhan.rhc
 5. Sum Downsampling
 
 #### Implementation Details
-This project uses NodeJS for the generation and sampling of the data points.
-* NodeJS module with implementations of downsampling algorithms - [utils/downSampler.js](https://github.com/suhaibkhan/downsampling-demo/blob/master/utils/downSampler.js)
-* NodeJS module for timeseries data generation - [utils/timeSeriesGenerator.js](https://github.com/suhaibkhan/downsampling-demo/blob/master/utils/timeSeriesGenerator.js)
-D3.js along with HTML5 Canvas API is used for visualizing the data.
+D3.js along with HTML5 Canvas API is used for visualizing the data and NodeJS is used for the generation and sampling of the data points.
+* Module with implementations of downsampling algorithms - [utils/downSampler.js](https://github.com/suhaibkhan/downsampling-demo/blob/master/utils/downSampler.js)
+* Module for timeseries data generation - [utils/timeSeriesGenerator.js](https://github.com/suhaibkhan/downsampling-demo/blob/master/utils/timeSeriesGenerator.js)
