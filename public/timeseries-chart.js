@@ -10,7 +10,8 @@
     var x, y, xAxis, yAxis, line, svg, brush,
       options = options || {}, selectable = false,
       margin = {top: 25, right: 0, bottom: 25, left: 50},
-      eventHandlers = {}, canvas, drawOnCanvas = false;
+      eventHandlers = {}, canvas, drawOnCanvas = false,
+      self = this;
 
     // init timeseries chart
     var _init = function(){ // constructor for this class
@@ -79,12 +80,12 @@
           .x(x)
           .on('brushend', function(){
             if (typeof eventHandlers['selectend'] === 'function'){
-              eventHandlers['selectend'].call(container, {selection: brush.extent()});
+              eventHandlers['selectend'].call(self, {selection: brush.extent(), type: 'event'});
             }
           })
           .on('brush', function(){
             if (typeof eventHandlers['select'] === 'function'){
-              eventHandlers['select'].call(container, {selection: brush.extent()});
+              eventHandlers['select'].call(self, {selection: brush.extent(), type: 'event'});
             }
           });
 
@@ -107,6 +108,20 @@
         .attr('class', 'time')
         .attr('x', width)
         .attr('y', -margin.top + 12);
+
+      // append loading msg
+      var loadingGroup = svg.append('g')
+        .attr('class', 'loading')
+        .attr('transform', 'translate(' + (width - 60)/2 + ',' + (height - 20)/2 + ')');
+
+      loadingGroup.append('rect')
+        .attr('width', 60)
+        .attr('height', 20);
+
+      loadingGroup.append('text')
+        .text('Loading...')
+        .attr('x', 8)
+        .attr('y', 4);
 
     };
 
@@ -150,7 +165,13 @@
 
       callback = callback || function(){};
 
+      // show loading
+      svg.selectAll('g .loading').style('display', 'block');
+
       d3.json(dataUrl, function(error, result){
+
+        // hide loading
+        svg.selectAll('g .loading').style('display', 'none');
 
         var data = result.data;
 
@@ -207,7 +228,7 @@
             return 'Time Taken: ' + (d / 1000) + 'secs';
           });
 
-        callback();
+        callback.call(self);
 
       });
       return this;
@@ -259,15 +280,15 @@
         if (!selectRegion && !brush.empty()){
           this.updateSelectionMask(brush.extent());
         }else{
-          selectRegion = selectRegion || [w/3, (2 * w)/3]; // default select region - middle portion
-          this.updateSelectionMask([x.invert(selectRegion[0]), x.invert(selectRegion[1])]);
+          selectRegion = selectRegion || [x.invert(w/3), x.invert((2 * w)/3)]; // default select region - middle portion
+          this.updateSelectionMask([selectRegion[0], selectRegion[1]]);
         }
 
         if (typeof eventHandlers['select'] === 'function'){
-          eventHandlers['select'].call(container, {selection: brush.extent()});
+          eventHandlers['select'].call(this, {selection: brush.extent(), type: 'manual'});
         }
         if (typeof eventHandlers['selectend'] === 'function'){
-          eventHandlers['selectend'].call(container, {selection: brush.extent()});
+          eventHandlers['selectend'].call(this, {selection: brush.extent(), type: 'manual'});
         }
       }
     };

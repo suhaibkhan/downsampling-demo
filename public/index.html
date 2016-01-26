@@ -24,7 +24,8 @@ h1{
 
 h2{
   padding: 0;
-  margin: 5px 25px;
+  margin: 5px 10px 5px 25px;
+  float: left;
 }
 
 canvas {
@@ -35,6 +36,10 @@ canvas {
 svg {
   position: absolute;
   z-index: 2;
+}
+
+button {
+  cursor: pointer;
 }
 
 .axis path,
@@ -65,11 +70,57 @@ svg {
   alignment-baseline: baseline;
 }
 
+.loading {
+  display: none;
+}
+
+.loading text{
+  alignment-baseline: baseline;
+}
+
+.loading rect{
+  fill: white;
+  fill-opacity: .5;
+}
+
 .chart {
   float: left;
   position: relative;
 }
 
+.algoSelectContainer {
+  text-align: center;
+  font-size: 12px;
+}
+
+.buttons {
+  display: inline-block;
+  background: #eeeeee;
+  border: 1px solid #a1a1a1;
+  padding: 2px 5px;
+  margin-top: 4px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete:before { content: "X";}
+
+.detail {
+  margin: 10px 50px 5px 50px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  background: #eee;
+  padding: 5px;
+  font-family: sans-serif;
+  font-size: 12px;
+  clear: both;
+}
+
+#detailContainer {
+  display: none;
+}
     </style>
     <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="timeseries-chart.js"></script>
@@ -77,51 +128,37 @@ svg {
   </head>
   <body>
     <div id="container">
-
-      <h1>Downsampling Algorithms Comparison</h1>
-
-      <div class="chartcontainer" data-sampling-method="raw">
-        <h2>Raw Data</h2>
-        <div class="chart link"></div>
-        <div class="chart main"></div>
-        <br style="clear: both"/>
+      <h1>Timeseries Data Downsampling Algorithms Comparison</h1>
+      <div class="algoSelectContainer">
+        <label>Select algorithm : </label>
+        <select id="algoSelect"></select>
+        <button id="drawChartsBtn">Add charts for comparison</button>
       </div>
-
-      <div class="chartcontainer" data-sampling-method="random">
-        <h2>Random Downsampling</h2>
-        <div class="chart link"></div>
-        <div class="chart main"></div>
-        <br style="clear: both"/>
+    </div>
+    <div id="detailContainer">
+      <div data-sampling-method="raw">
+        Raw (unsampled) data.
       </div>
-
-      <div class="chartcontainer" data-sampling-method="average">
-        <h2>Average Downsampling</h2>
-        <div class="chart link"></div>
-        <div class="chart main"></div>
-        <br style="clear: both"/>
+      <div data-sampling-method="random">
+        In random downsampling method, data is divided in to specified number of buckets and a random item is picked
+        from each bucket to form the sampled data.
       </div>
-
-      <div class="chartcontainer" data-sampling-method="sum">
-        <h2>Sum Downsampling</h2>
-        <div class="chart link"></div>
-        <div class="chart main"></div>
-        <br style="clear: both"/>
+      <div data-sampling-method="average">
+        In average downsampling method, data is divided in to specified number of buckets and average of all items
+        in each bucket is combined to form the sampled data.
       </div>
-
-      <div class="chartcontainer" data-sampling-method="minmax">
-        <h2>Combined Minimum Maximum Downsampling</h2>
-        <div class="chart link"></div>
-        <div class="chart main"></div>
-        <br style="clear: both"/>
+      <div data-sampling-method="sum">
+        In sum downsampling method, data is divided in to specified number of buckets and sum of all items
+        in each bucket is combined to form the sampled data. This downsampling method changes the y axis.
       </div>
-
-      <div class="chartcontainer" data-sampling-method="lttb">
-        <h2>Largest Triangle Three Buckets Downsampling</h2>
-        <div class="chart link"></div>
-        <div class="chart main"></div>
-        <br style="clear: both"/>
+      <div data-sampling-method="minmax">
+        In combined minimum-maximum downsampling method, data is divided in to specified number of buckets and
+        from each bucket minimum and maximum data points (two values) is picked to form the sampled data.
       </div>
-
+      <div data-sampling-method="lttb">
+        Largest-Triangle-Three-Buckets algorithm proposed by Sveinn Steinarsson. For more details visit
+        <a href="https://github.com/sveinn-steinarsson/flot-downsample" target="_blank">https://github.com/sveinn-steinarsson/flot-downsample</a>
+      </div>
     </div>
   </body>
 </html>
