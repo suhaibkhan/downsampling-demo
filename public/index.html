@@ -13,7 +13,7 @@ body {
 }
 
 h1, h2{
-  font-family: serif, Georgia;
+  font-family: Georgia, serif;
 }
 
 h1{
@@ -105,14 +105,17 @@ button {
   cursor: pointer;
 }
 
+.buttons:hover {
+  background: #cfcfcf;
+}
+
 .delete:before { content: "X";}
 
 .detail {
   margin: 10px 50px 5px 50px;
-  border: 1px solid lightgray;
   border-radius: 5px;
-  background: #eee;
-  padding: 5px;
+  background: #f0f0f0;
+  padding: 10px;
   font-family: sans-serif;
   font-size: 12px;
   clear: both;
@@ -132,7 +135,7 @@ button {
       <div class="algoSelectContainer">
         <label>Select algorithm : </label>
         <select id="algoSelect"></select>
-        <button id="drawChartsBtn">Add charts for comparison</button>
+        <a id="drawChartsBtn" class="buttons">Add Comparison</a>
       </div>
     </div>
     <div id="detailContainer">
