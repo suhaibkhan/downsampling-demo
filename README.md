@@ -1,7 +1,7 @@
 ### Comparison of timeseries data downsampling algorithms
 
 Downsampling algorithms are tested on randomly generated 100,000 timeseries data points.
-Live demo of this comparison can be viewed at http://live-down-sampling-demo.193b.starter-ca-central-1.openshiftapps.com/
+Live demo of this comparison can be viewed at http://live-down-sampling-demo.193b.starter-ca-central-1.openshiftapps.com/ 
 
 #### Algorithms Used
 1. Average Downsampling
